@@ -55,24 +55,22 @@ class Schooldetails(ModelViewSet):
             studentlist.append(i.user_id)
         
         student= User.objects.filter(id__in = studentlist)
-
-        
       
         serializer = UserSerlizer(student,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+    
 
-
-    # @action(detail=True,methods = ["GET"],)
-    # def sigleschoolclass(self,request,id=None):
-    #     clas = self.get_object()
-    #     print("==============", clas)
-    #     cls_id= clas.id
-    #     print("This is ----------------",cls_id)
-    #     clasid = Class.objects.get(id = cls_id)
-    #     serializer = ClassSerializers(clasid)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
+    @action(detail=True,methods = ["GET"],)
+    def sigleschoolclass(self,request,id=None):
+        clas = self.get_object()
+        print("==============", clas)
+        cls_id= clas.id
+        print("This is ----------------",cls_id)
+        clasid = Class.objects.get(id = cls_id)
+        serializer = ClassSerializers(clasid)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     
         
@@ -85,14 +83,6 @@ class Schooldetails(ModelViewSet):
 
 
 
-class SigleSchoolClassStudentlist(APIView):
-    def get(self,request,id=None):
-        data = School.objects.all()
-        for i in data:
-            print(i.SchoolName)
-        serializer = SchoolSerializer(data,many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
    
 
 class Classdetaills(ModelViewSet):
@@ -104,7 +94,7 @@ class Classdetaills(ModelViewSet):
     @action(detail=True,methods = ["GET"])
     def students(self,request,id=None):
         tobj = self.get_object()
-        objs = Student.objects.filter(school_id=tobj.id)
+        objs = Student.objects.filter(studetclass_id=tobj.id)
         print("THis i-------------------------------s objds",objs)
     
 
@@ -143,6 +133,7 @@ class teacherlist(APIView):
         data =Teacher.objects.all()
         serializer = Teacherserializer(data,many=True)
         return Response(serializer.data)
+
 
 
 

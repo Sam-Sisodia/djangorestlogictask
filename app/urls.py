@@ -20,9 +20,10 @@ router.register("student",views.Studentdetails, basename="students" )
 urlpatterns = [
                 
     path('crud/',include(router.urls)),
-    path('sin/',views.SigleSchoolClassStudentlist.as_view()),
+
     path('studentslist',views.studentlist.as_view()),
     path('teacherlist',views.teacherlist.as_view()),
+  
 
     
 ]
